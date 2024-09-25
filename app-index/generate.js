@@ -29,7 +29,7 @@ for (const id of folders) {
     const rootUrl = `https://raw.githubusercontent.com/${REPO}/${TAG}/app-index/apps/${id}`;
 
     const marked = new Marked();
-    marked.use(baseUrl(rootUrl));
+    marked.use(baseUrl(rootUrl + "/"));
 
     let tags = [];
     try {

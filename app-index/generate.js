@@ -44,6 +44,7 @@ for (const id of folders) {
     } catch (ignored) { }
 
     const name = readFileSync(join("./apps", id, "name.txt"), { encoding: "utf-8" });
+    const author = readFileSync(join("./apps", id, "author.txt"), { encoding: "utf-8" });
     const descriptionMarkdown = readFileSync(join("./apps", id, "description.md"), { encoding: "utf-8" });
 
     const downloads = readdirSync(join("./apps", id, "downloads"), { withFileTypes: true })
@@ -65,6 +66,7 @@ for (const id of folders) {
     {
         id: string,
         name: string,
+        author: string,
         description: {
             markdown: string,
             html: string,
@@ -82,6 +84,7 @@ for (const id of folders) {
     const appInfo = {
         id: id,
         name: name,
+        author: author,
         description: {
             markdown: descriptionMarkdown,
             html: marked.parse(descriptionMarkdown)

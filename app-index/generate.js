@@ -4,10 +4,8 @@ import { Marked } from "marked";
 import { baseUrl } from "marked-base-url";
 import { env } from 'process';
 
-const REPO = env.GITHUB_REPOSITORY || "example/rt-downloads";
+const REPO = env.GITHUB_REPOSITORY || "e3ndr/rt-downloads";
 const TAG = env.GITHUB_SHA || "main";
-const OUTPUT_FILE = "../site/static/api/apps/index.json";  // Should be placed inside of the SvelteKit site's static resources.
-mkdirSync("../site/static/api/apps/", { recursive: true });
 
 const index = {};
 
@@ -96,6 +94,10 @@ for (const id of folders) {
     index[appInfo.id] = appInfo;
 }
 
-// Write the folder list to OUTPUT_FILE.
-writeFileSync(OUTPUT_FILE, JSON.stringify(index, null, 2));
-console.log(JSON.stringify(index, null, 2), ">", OUTPUT_FILE);
+// Place a file to be the "api".
+mkdirSync("../site/static/api/apps/", { recursive: true });
+writeFileSync("../site/static/api/apps/index.json", JSON.stringify(index, null, 2));
+
+// Place a file in the libs for the pre-rendering.
+mkdirSync("../site/lib/external/apps/", { recursive: true });
+writeFileSync("../site/lib/external/apps/index.json", JSON.stringify(index, null, 2));

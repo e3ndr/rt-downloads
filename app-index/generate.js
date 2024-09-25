@@ -99,5 +99,5 @@ mkdirSync("../site/static/api/apps/", { recursive: true });
 writeFileSync("../site/static/api/apps/index.json", JSON.stringify(index, null, 2));
 
 // Place a file in the libs for the pre-rendering.
-mkdirSync("../site/lib/external/apps/", { recursive: true });
-writeFileSync("../site/lib/external/apps/index.json", JSON.stringify(index, null, 2));
+mkdirSync("../site/src/lib/external/apps/", { recursive: true });
+writeFileSync("../site/src/lib/external/apps/index.json", JSON.stringify(index, null, 2));

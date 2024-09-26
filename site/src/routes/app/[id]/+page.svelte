@@ -1,10 +1,12 @@
 <script lang="ts">
+	import { base } from '$app/paths';
+
 	export let data: import('./$types').PageData;
 
 	const app = data.app;
 </script>
 
-<a href="/" class="underline"> Go back </a>
+<a href="{base}/" class="underline"> Go back </a>
 
 <table>
 	<tr class="w-full">

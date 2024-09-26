@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { base } from '$app/paths';
-	import { loadConfigFromFile } from 'vite';
 
 	export let data: import('./$types').PageData;
 

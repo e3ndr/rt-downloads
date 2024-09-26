@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { base } from '$app/paths';
+	import { loadConfigFromFile } from 'vite';
 
 	export let data: import('./$types').PageData;
 
@@ -38,6 +39,11 @@
 			<h1 class="font-bold underline">{app.name}</h1>
 			Author:<i>{app.author}</i> <br />
 			Tags: <i>{app.tags.join(', ')}</i>
+			{#if app.license}
+				<br />
+				License:
+				<i><a href={app.license.url} target="_blank" class="underline"> {app.license.title} </a></i>
+			{/if}
 
 			<br />
 			<br />

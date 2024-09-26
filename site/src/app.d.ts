@@ -5,10 +5,16 @@ export declare type AppDownload = {
 	sizeStr: string,
 }
 
+export declare type AppLicense = {
+	title: string,
+	url: string,
+}
+
 export declare type App = {
 	id: string,
 	name: string,
 	author: string,
+	license: AppLicense | null,
 	description: {
 		markdown: string,
 		html: string,

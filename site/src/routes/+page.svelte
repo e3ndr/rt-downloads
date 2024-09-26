@@ -13,10 +13,15 @@
 	{#each apps as app}
 		<li>
 			<a href="{base}/app/{app.id}">
-				<img src={app.iconUrl} class="float-left h-20 w-20 object-cover" alt="" />
+				<img src={app.iconUrl} class="float-left h-24 w-24 object-cover" alt="" />
 				<b class="underline">{app.name}</b> <br />
 				Author: <i>{app.author}</i> <br />
 				Tags: <i>{app.tags.join(', ')}</i>
+				{#if app.license}
+					<br />
+					License:
+					<i>{app.license.title}</i>
+				{/if}
 			</a>
 		</li>
 	{/each}

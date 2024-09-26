@@ -1,0 +1,12 @@
+{
+    "name": "Lite-XL",
+    "author": "utf, Lite-XL Contributors",
+    "license": {
+        "title": "MIT",
+        "url": "https://github.com/lite-xl/lite-xl/blob/master/LICENSE"
+    },
+    "tags": [
+        "Windows 8.1",
+        "Windows 10"
+    ]
+}

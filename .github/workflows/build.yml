@@ -9,23 +9,53 @@ on:
          - created
 
 jobs:
-    build:
-        runs-on: ubuntu-latest
+  build:
+    runs-on: ubuntu-latest
 
-        steps:
-        - name: 📥 Checkout repository
-          uses: actions/checkout@v2
+    steps:
+    - name: 📥 Checkout repository
+      uses: actions/checkout@v2
 
-        - name: 📋 Setup NodeJS
-          uses: actions/setup-node@v4
-          with:
-            node-version: 18
+    - name: 📋 Setup NodeJS
+      uses: actions/setup-node@v4
+      with:
+        node-version: 20
 
-        - name: 🔨 Build App Index
-          run: cd app-index && npm install && node generate
-          
-        - name: 📦 Upload App Index
-          uses: actions/upload-artifact@v4
-          with:
-            name: "app_index.json"
-            path: "site/static/api/apps/index.json"
+    - name: 🔨 Build App Index
+      run: cd app-index && npm install && node generate
+      
+    - name: 📦 Upload App Index
+      uses: actions/upload-artifact@v4
+      with:
+        name: "app_index.json"
+        path: "site/static/api/apps/index.json"
+        
+    - name: 🔨 Build Site
+      env:
+        BASE_PATH: '/${{ github.event.repository.name }}'
+      run: cd site && npm install && npm run build
+      
+    - name: 📦 Upload Site
+      uses: actions/upload-pages-artifact@v3
+      with:
+        path: 'site/build/'
+            
+  deploy:
+    needs: build
+
+    # Grant GITHUB_TOKEN the permissions required to make a Pages deployment
+    permissions:
+      pages: write      # to deploy to Pages
+      id-token: write   # to verify the deployment originates from an appropriate source
+
+    # Deploy to the github-pages environment
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    # Specify runner + deployment step
+    runs-on: ubuntu-latest
+    steps:
+        - name: 🔄️ Deploy the Site
+          id: deployment
+          uses: actions/deploy-pages@v4

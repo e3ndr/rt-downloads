@@ -1,6 +1,8 @@
 <script lang="ts">
-	import appIndex from '$lib/external/apps/index.json';
 	import type { App } from '../app';
+
+	import { base } from '$app/paths';
+	import appIndex from '$lib/external/apps/index.json';
 
 	const apps = Object.values(appIndex) as App[];
 </script>
@@ -10,7 +12,7 @@
 <ul>
 	{#each apps as app}
 		<li>
-			<a href="/app/{app.id}">
+			<a href="{base}/app/{app.id}">
 				<img src={app.iconUrl} class="float-left h-20 w-20 object-cover" alt="" />
 				<b class="underline">{app.name}</b> <br />
 				Author: <i>{app.author}</i> <br />

@@ -79,6 +79,7 @@ for (const id of folders) {
         downloads: {
             name: string,
             downloadUrl: string,
+            createdAtMs: number | -1, // -1 if no date provided.
             size: number,
             sizeStr: string,
         }[],

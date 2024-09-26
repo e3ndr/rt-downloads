@@ -43,19 +43,24 @@ for (const id of folders) {
 
     const descriptionMarkdown = readFileSync(join("./apps", id, "description.md"), { encoding: "utf-8" });
 
-    const downloads = readdirSync(join("./apps", id, "downloads"), { withFileTypes: true })
-        .filter((f) => f.isFile())
-        .map((f) => {
-            const stats = statSync(join("./apps", id, "downloads", f.name));
-            return {
-                name: f.name.replace(".zip", ""),
-                downloadUrl: `${rootUrl}/downloads/${f.name}`,
-                createdAtMs: Math.floor(stats.birthtimeMs),
-                size: stats.size,
-                sizeStr: prettifySize(stats.size),
-            };
-        })
-        .sort((f1, f2) => f2.createdAtMs - f1.createdAtMs);
+    let downloads;
+    if (meta.downloads) {
+        downloads = meta.downloads; // Manually-provided external download links. THIS MUST BE WELL-FORMED!
+    } else {
+        downloads = readdirSync(join("./apps", id, "downloads"), { withFileTypes: true })
+            .filter((f) => f.isFile())
+            .map((f) => {
+                const stats = statSync(join("./apps", id, "downloads", f.name));
+                return {
+                    name: f.name.replace(".zip", ""),
+                    downloadUrl: `${rootUrl}/downloads/${f.name}`,
+                    createdAtMs: Math.floor(stats.birthtimeMs),
+                    size: stats.size,
+                    sizeStr: prettifySize(stats.size),
+                };
+            })
+            .sort((f1, f2) => f2.createdAtMs - f1.createdAtMs);
+    }
 
     // App info schema is as follows:
     /*

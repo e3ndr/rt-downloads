@@ -1,0 +1,11 @@
+{
+    "name": "Moonlight Game Streaming",
+    "author": "Jeybee, Moonlight Contributors",
+    "license": {
+        "title": "GNU General Public License v3.0",
+        "url": "https://github.com/moonlight-stream/moonlight-qt/blob/master/LICENSE"
+    },
+    "tags": [
+        "Windows 10"
+    ]
+}

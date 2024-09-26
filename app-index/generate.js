@@ -29,11 +29,11 @@ for (const id of folders) {
     const marked = new Marked();
     marked.use(baseUrl(rootUrl + "/"));
 
-    let tags = [];
-    try {
-        // tags.json must be an array!
-        tags = JSON.parse(readFileSync(join("./apps", id, "tags.json"), { encoding: "utf-8" }));
-    } catch (ignored) { }
+    // tags: string[]
+    // name: string
+    // author: string
+    // license: {title: string, url: string} | null
+    const meta = JSON.parse(readFileSync(join("./apps", id, "meta.json"), { encoding: "utf-8" }));
 
     let iconUrl = null;
     try {
@@ -41,8 +41,6 @@ for (const id of folders) {
         iconUrl = `${rootUrl}/icon.png`;
     } catch (ignored) { }
 
-    const name = readFileSync(join("./apps", id, "name.txt"), { encoding: "utf-8" });
-    const author = readFileSync(join("./apps", id, "author.txt"), { encoding: "utf-8" });
     const descriptionMarkdown = readFileSync(join("./apps", id, "description.md"), { encoding: "utf-8" });
 
     const downloads = readdirSync(join("./apps", id, "downloads"), { withFileTypes: true })
@@ -65,6 +63,10 @@ for (const id of folders) {
         id: string,
         name: string,
         author: string,
+        license: {
+            title: string,
+            url: string
+        } | null,
         description: {
             markdown: string,
             html: string,
@@ -81,14 +83,15 @@ for (const id of folders) {
     */
     const appInfo = {
         id: id,
-        name: name,
-        author: author,
+        name: meta.name,
+        author: meta.author,
+        license: meta.license,
         description: {
             markdown: descriptionMarkdown,
             html: marked.parse(descriptionMarkdown)
         },
         downloads: downloads,
-        tags: tags,
+        tags: meta.tags,
         iconUrl: iconUrl
     };
     index[appInfo.id] = appInfo;

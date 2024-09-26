@@ -29,10 +29,10 @@ for (const id of folders) {
     const marked = new Marked();
     marked.use(baseUrl(rootUrl + "/"));
 
-    // tags: string[]
     // name: string
     // author: string
     // license: {title: string, url: string} | null
+    // tags: string[]
     const meta = JSON.parse(readFileSync(join("./apps", id, "meta.json"), { encoding: "utf-8" }));
 
     let iconUrl = null;
